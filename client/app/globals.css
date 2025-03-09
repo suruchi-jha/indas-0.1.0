@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Poppins', sans-serif; /* Capitalized Poppins for consistency */
+  --font-roboto-mono: 'Roboto Mono', monospace;
+}
+
+body {
+  font-family: var(--font-inter);
+}
+
+.font-mono {
+  font-family: var(--font-roboto-mono);
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
