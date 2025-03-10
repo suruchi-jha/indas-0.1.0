@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col font-sans">
       {/* Navigation Bar */}
-      <nav className="w-full flex items-center justify-between p-4 sm:p-6 border-b border-black/10 dark:border-white/10">
+      <nav className="w-full flex items-center justify-between p-4 sm:p-6 border-b-2 border-black"> {/* Added border-b-2 border-black */}
         {/* Logo and App Name */}
         <div className="flex items-center gap-2">
           <span className="text-3xl underline decoration-blue-500 font-medium font-mono">Indas</span>
@@ -58,7 +58,7 @@ export default function Home() {
           </Link>
           <Link
             href="/join"
-            className="rounded-full bg-black text-white dark:bg-white dark:text-black px-4 py-2 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white transition-colors text-sm"
+            className="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-500 hover:text-black transition-colors text-sm" // Updated styles
           >
             Join
           </Link>
