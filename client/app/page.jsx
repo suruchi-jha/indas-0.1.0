@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FaRoad, FaMapMarkerAlt, FaBullhorn } from "react-icons/fa"; // Icons for features
 
 export default function Home() {
   const [text, setText] = useState("");
@@ -102,6 +103,55 @@ export default function Home() {
           />
         </div>
       </main>
+
+      {/* Features Section */}
+      <section className="w-full py-12 sm:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl font-medium underline decoration-blue-500 text-center font-mono mb-8">
+            Features
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {/* Feature 1: Road Block Alert */}
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex justify-center mb-4">
+                <FaRoad className="text-4xl text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-center font-mono mb-2">
+                Road Block Alert
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-center font-poppins">
+                Get real-time alerts about roadblocks and alternative routes during emergencies.
+              </p>
+            </div>
+
+            {/* Feature 2: Nearby Evac Point */}
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex justify-center mb-4">
+                <FaMapMarkerAlt className="text-4xl text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-center font-mono mb-2">
+                Nearby Evac Point
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-center font-poppins">
+                Locate the nearest evacuation points quickly and safely.
+              </p>
+            </div>
+
+            {/* Feature 3: Emergency Broadcast System */}
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex justify-center mb-4">
+                <FaBullhorn className="text-4xl text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-center font-mono mb-2">
+                Emergency Broadcast
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-center font-poppins">
+                Stay informed with real-time emergency broadcasts and updates.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="w-full p-6 sm:p-8 border-t border-black/10 dark:border-white/10 text-center">
