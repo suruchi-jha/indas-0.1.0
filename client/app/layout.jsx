@@ -1,11 +1,11 @@
 import { Poppins, Roboto_Mono } from "next/font/google"; // Import Poppins and Roboto Mono
 import "./globals.css";
+import { Poppins } from "next/font/google";
 
-// Configure Poppins
-const poppins = Poppins({
+export const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"], // Include the weights you need
-  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 // Configure Roboto Mono
