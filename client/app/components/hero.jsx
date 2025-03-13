@@ -6,32 +6,51 @@ import { useEffect, useState } from 'react';
 // Hero Component
 const Hero = () => {
   const [text, setText] = useState('');
-  const fullText =
-    'Indas is your ultimate guide during emergencies. Detect earthquakes, find safe exits, and stay informed with real-time alerts.';
+  const fullText = 'Indas'; // The word to apply the typewriter effect to
   const [index, setIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false); // To handle the backspacing effect
 
-  // Typewriter effect for the hero section
+  // Typewriter effect for the "Indas" word
   useEffect(() => {
-    if (index < fullText.length) {
-      const timeout = setTimeout(() => {
-        setText((prevText) => prevText + fullText[index]);
-        setIndex((prevIndex) => prevIndex + 1);
-      }, 50);
-      return () => clearTimeout(timeout);
-    }
-  }, [index, fullText]);
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing forward
+        if (index < fullText.length) {
+          setText((prevText) => prevText + fullText[index]);
+          setIndex((prevIndex) => prevIndex + 1);
+        } else {
+          // Start deleting after a short delay
+          setTimeout(() => setIsDeleting(true), 1000);
+        }
+      } else {
+        // Deleting backward
+        if (text.length > 0) {
+          setText((prevText) => prevText.slice(0, -1));
+        } else {
+          // Reset for the next loop
+          setIsDeleting(false);
+          setIndex(0);
+        }
+      }
+    }, isDeleting ? 50 : 150); // Faster backspacing, slower typing
+
+    return () => clearTimeout(timeout);
+  }, [index, isDeleting, text, fullText]);
 
   return (
     <main className="flex-1 flex flex-col items-center justify-center text-center p-8 sm:p-20 gap-8">
       {/* Heading */}
       <h1 className="text-4xl sm:text-5xl font-bold">
-        Navigate Safely with <span className="text-blue-600">Indas</span>
+        Navigate Safely with{' '}
+        <span className="text-blue-600">
+          {text}
+          <span className="ml-1 inline-block h-6 w-1 bg-black animate-blink" />
+        </span>
       </h1>
 
-      {/* Typewriter Text */}
+      {/* Static Description */}
       <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed">
-        <span className="inline-block">{text}</span>
-        <span className="ml-1 inline-block h-6 w-1 bg-black animate-blink" />
+        Indas is your ultimate guide during emergencies. Detect earthquakes, find safe exits, and stay informed with real-time alerts.
       </p>
 
       {/* Buttons */}

@@ -5,6 +5,7 @@ import Navbar from './components/navbar'; // Import the Navbar component
 import Hero from './components/hero'; // Import the Hero component
 import Features from './components/feature'; // Import the Features component
 import Footer from './components/footer'; // Import the Footer component
+import About from './components/about'; // Import the About component
 
 export default function Home() {
   return (
@@ -14,6 +15,9 @@ export default function Home() {
 
       {/* Hero Section */}
       <Hero />
+
+      {/* About Section */}
+      <About />
 
       {/* Features Section */}
       <Features />
