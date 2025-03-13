@@ -46,7 +46,7 @@ export default function Home() {
             <button onClick={toggleTheme} className="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-500 hover:text-black transition-all shadow-md">
               Toggle Theme
             </button>
-            <Link href="/join" className="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-500 hover:text-black transition-all shadow-md">
+            <Link href="/auth/login" className="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-500 hover:text-black transition-all shadow-md">
               Join
             </Link>
           </div>
@@ -103,17 +103,23 @@ export default function Home() {
               {[{icon: <FaRoad />, title: "Road Block Alert", desc: "Get real-time alerts about roadblocks and alternative routes during emergencies."},
                 {icon: <FaMapMarkerAlt />, title: "Nearby Evac Point", desc: "Locate the nearest evacuation points quickly and safely."},
                 {icon: <FaBullhorn />, title: "Emergency Broadcast", desc: "Stay informed with real-time emergency broadcasts and updates."},
-                {icon: <FaCloudSun />, title: "Weather Alerts", desc: "Receive real-time weather updates to stay prepared for natural disasters."},
-                {icon: <FaExclamationTriangle />, title: "SOS Button", desc: "One-tap emergency SOS alert to notify authorities instantly."},
+                {icon: <FaCloudSun />, title: "Weather Alerts", desc: "Receive real-time weather updates to stay prepared for natural disasters.", link: "/features/weather-alerts"},
+                {icon: <FaExclamationTriangle />, title: "SOS Button", desc: "One-tap emergency SOS alert to notify authorities instantly.", link: "/features/sos"},
                 {icon: <FaHandsHelping />, title: "Community Help", desc: "Find or offer help to those in need during emergencies."}
               ].map((feature, i) => (
-                <motion.div key={i} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all flex flex-col items-center text-center"
+                <motion.div key={i} 
+                  className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all flex flex-col items-center text-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <div className="text-4xl text-blue-600 mb-4">{feature.icon}</div>
                   <h3 className="text-xl font-bold">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.desc}</p>
+                  <p className="text-gray-600 mb-4">{feature.desc}</p>
+                  {feature.link && (
+                    <Link href={feature.link} className="text-blue-600 hover:underline mt-auto">
+                      Learn more
+                    </Link>
+                  )}
                 </motion.div>
               ))}
             </div>
