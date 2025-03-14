@@ -61,7 +61,7 @@ const Features = () => {
           {features.map((feature, i) => (
             <motion.div
               key={i}
-              className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all flex flex-col items-center text-center"
+              className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:shadow-blue-500 transform hover:-translate-y-2 transition-all flex flex-col items-center text-center"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
