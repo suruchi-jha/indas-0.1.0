@@ -24,6 +24,8 @@ export const getWeatherByLocation = async (req, res) => {
     res.status(200).json(weatherData);
   } catch (error) {
     console.error('Weather API error:', error.response?.data || error.message);
+    console.log("Using API Key:", process.env.OPENWEATHER_API_KEY);
+
     res.status(500).json({ 
       message: 'Error fetching weather data',
       error: error.response?.data || error.message

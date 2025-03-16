@@ -1,53 +1,61 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { FaPhone, FaAmbulance, FaFireExtinguisher, FaShieldAlt, FaExclamationTriangle } from 'react-icons/fa';
+import { useState } from "react"
+import { FaPhone, FaAmbulance, FaFireExtinguisher, FaShieldAlt, FaExclamationTriangle } from "react-icons/fa"
+import Navbar from "../../components/navbar"
 
 export default function SOS() {
-  const [calling, setCalling] = useState(false);
-  const [callingService, setCallingService] = useState('');
-  
+  const [calling, setCalling] = useState(false)
+  const [callingService, setCallingService] = useState("")
+
   const emergencyServices = [
-    { id: 'police', name: 'Police', number: '100', icon: <FaShieldAlt className="text-3xl" />, color: 'bg-blue-600' },
-    { id: 'ambulance', name: 'Ambulance', number: '108', icon: <FaAmbulance className="text-3xl" />, color: 'bg-red-600' },
-    { id: 'fire', name: 'Fire Department', number: '101', icon: <FaFireExtinguisher className="text-3xl" />, color: 'bg-orange-600' },
-    { id: 'ndrf', name: 'NDRF', number: '011-24363260', icon: <FaExclamationTriangle className="text-3xl" />, color: 'bg-green-600' },
-    { id: 'disaster', name: 'Disaster Management', number: '1070', icon: <FaExclamationTriangle className="text-3xl" />, color: 'bg-purple-600' },
-  ];
-  
+    { id: "police", name: "Police", number: "100", icon: <FaShieldAlt className="text-3xl" />, color: "bg-blue-600" },
+    {
+      id: "ambulance",
+      name: "Ambulance",
+      number: "108",
+      icon: <FaAmbulance className="text-3xl" />,
+      color: "bg-red-600",
+    },
+    {
+      id: "fire",
+      name: "Fire Department",
+      number: "101",
+      icon: <FaFireExtinguisher className="text-3xl" />,
+      color: "bg-orange-600",
+    },
+    {
+      id: "ndrf",
+      name: "NDRF",
+      number: "011-24363260",
+      icon: <FaExclamationTriangle className="text-3xl" />,
+      color: "bg-green-600",
+    },
+    {
+      id: "disaster",
+      name: "Disaster Management",
+      number: "1070",
+      icon: <FaExclamationTriangle className="text-3xl" />,
+      color: "bg-purple-600",
+    },
+  ]
+
   const handleEmergencyCall = (service) => {
-    setCalling(true);
-    setCallingService(service.name);
-    
+    setCalling(true)
+    setCallingService(service.name)
+
     // Simulate a call (in a real app, this would use the device's calling capabilities)
     setTimeout(() => {
-      setCalling(false);
-      setCallingService('');
-      alert(`This would call ${service.name} at ${service.number} in a real application.`);
-    }, 2000);
-  };
-  
+      setCalling(false)
+      setCallingService("")
+      alert(`This would call ${service.name} at ${service.number} in a real application.`)
+    }, 2000)
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-white via-gray-100 to-gray-300">
       {/* Navigation Bar */}
-      <nav className="w-full flex items-center justify-between p-4 sm:p-6 border-b-2 border-black shadow-lg bg-white">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="text-3xl underline decoration-blue-500 font-medium font-mono">
-            Indas
-          </Link>
-        </div>
-        <div className="flex items-center gap-6">
-          {["Home", "About", "Features", "Blog"].map((item, i) => (
-            <Link key={i} href={`/${item.toLowerCase()}`} className="text-l hover:text-blue-500 transition-colors hover:underline">
-              {item}
-            </Link>
-          ))}
-          <Link href="/auth/login" className="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-500 hover:text-black transition-all shadow-md">
-            Join
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* SOS Content */}
       <div className="flex-1 container mx-auto px-4 py-8">
@@ -55,7 +63,7 @@ export default function SOS() {
         <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
           In case of emergency, tap on any of the buttons below to quickly contact the appropriate emergency service.
         </p>
-        
+
         {/* Emergency Calling Modal */}
         {calling && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -71,7 +79,7 @@ export default function SOS() {
             </div>
           </div>
         )}
-        
+
         {/* Emergency Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {emergencyServices.map((service) => (
@@ -86,21 +94,24 @@ export default function SOS() {
             </button>
           ))}
         </div>
-        
+
         {/* Emergency Instructions */}
         <div className="mt-12 max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold mb-4">Emergency Instructions</h2>
           <div className="space-y-4">
             <div className="p-4 bg-blue-100 rounded-lg">
               <h3 className="font-bold text-blue-800 mb-2">Stay Calm</h3>
-              <p>Take deep breaths and try to remain calm. This will help you communicate clearly with emergency services.</p>
+              <p>
+                Take deep breaths and try to remain calm. This will help you communicate clearly with emergency
+                services.
+              </p>
             </div>
-            
+
             <div className="p-4 bg-green-100 rounded-lg">
               <h3 className="font-bold text-green-800 mb-2">Share Your Location</h3>
               <p>Be prepared to share your exact location or use the app's location sharing feature.</p>
             </div>
-            
+
             <div className="p-4 bg-yellow-100 rounded-lg">
               <h3 className="font-bold text-yellow-800 mb-2">Follow Instructions</h3>
               <p>Listen carefully to the emergency operator and follow their instructions precisely.</p>
@@ -116,5 +127,6 @@ export default function SOS() {
         </div>
       </footer>
     </div>
-  );
+  )
 }
+

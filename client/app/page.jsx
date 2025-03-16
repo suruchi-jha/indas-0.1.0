@@ -1,29 +1,31 @@
-'use client';
-
-import Link from 'next/link';
-import Navbar from './components/navbar'; // Import the Navbar component
-import Hero from './components/hero'; // Import the Hero component
-import Features from './components/feature'; // Import the Features component
-import Footer from './components/footer'; // Import the Footer component
-import About from './components/about'; // Import the About component
+"use client"
+import Link from "next/link"
+import Navbar from "./components/navbar"
+import Features from "./components/feature"
+import About from "./components/about"
+import Footer from "./components/footer"
+import Hero from "./components/hero"
 
 export default function Home() {
+  
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-gradient-to-br from-white via-gray-100 to-gray-300">
-      {/* Navbar */}
-      <Navbar />
+      <div className="min-h-screen flex flex-col font-sans bg-gradient-to-br from-white via-gray-100 to-gray-300">
+        {/* Navigation Bar */}
+        <Navbar />
 
-      {/* Hero Section */}
-      <Hero />
+        {/* Hero Section */}
+        <Hero />
 
-      {/* About Section */}
-      <About />
+        {/* Live Alert Ticker (Shorter & Moving Text) */}
+        <About />
 
-      {/* Features Section */}
-      <Features />
+        {/* Features Section */}
+        <Features />
 
-      {/* Footer */}
-      <Footer />
-    </div>
-  );
+        {/* Footer */}
+        <Footer />
+      </div>
+  )
 }
+
+
