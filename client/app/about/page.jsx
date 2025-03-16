@@ -2,35 +2,13 @@
 
 import Link from "next/link"
 import { FaInfoCircle, FaTools } from "react-icons/fa"
+import Navbar from "../components/navbar"
 
 export default function About() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-white via-gray-100 to-gray-300">
       {/* Navigation Bar */}
-      <nav className="w-full flex items-center justify-between p-4 sm:p-6 border-b-2 border-black shadow-lg bg-white">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="text-3xl underline decoration-blue-500 font-medium font-mono">
-            Indas
-          </Link>
-        </div>
-        <div className="flex items-center gap-6">
-          {["Home", "About", "Features", "Blog"].map((item, i) => (
-            <Link
-              key={i}
-              href={item === "Home" ? "/" : item === "Features" ? "/#features" : `/${item.toLowerCase()}`}
-              className="text-l hover:text-blue-500 transition-colors hover:underline"
-            >
-              {item}
-            </Link>
-          ))}
-          <Link
-            href="/auth/login"
-            className="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-500 hover:text-black transition-all shadow-md"
-          >
-            Join
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Coming Soon Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-8">
