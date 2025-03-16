@@ -1,14 +1,17 @@
+
 "use client"
 
 import Link from "next/link"
 import { FaRoad, FaMapMarkerAlt, FaBullhorn, FaCloudSun, FaHandsHelping, FaExclamationTriangle } from "react-icons/fa"
 import { motion } from "framer-motion"
 
+
 // Features Component
 const Features = () => {
   const features = [
     {
       icon: <FaRoad />,
+
       title: "Road Block Alert",
       desc: "Get real-time alerts about roadblocks and alternative routes during emergencies.",
       link: "/features/road-block-alert",
@@ -47,6 +50,7 @@ const Features = () => {
 
   return (
     <section id="features" className="w-full py-12 sm:py-20">
+
       <div className="container mx-auto px-4 sm:px-6">
         {/* Section Heading */}
         <h2 className="text-3xl sm:text-4xl font-medium underline decoration-blue-500 text-center font-mono mb-8">
@@ -74,10 +78,12 @@ const Features = () => {
                 {/* Learn More Link (if applicable) */}
               </motion.div>
             </Link>
+
           ))}
         </div>
       </div>
     </section>
+
   )
 }
 

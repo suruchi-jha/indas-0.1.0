@@ -6,10 +6,8 @@ import About from "./components/about"
 import Footer from "./components/footer"
 import Hero from "./components/hero"
 
-
 export default function Home() {
   
-
   return (
       <div className="min-h-screen flex flex-col font-sans bg-gradient-to-br from-white via-gray-100 to-gray-300">
         {/* Navigation Bar */}
@@ -29,4 +27,5 @@ export default function Home() {
       </div>
   )
 }
+
 

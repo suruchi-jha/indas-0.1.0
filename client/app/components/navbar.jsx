@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -7,6 +8,7 @@ import { useRouter, usePathname } from "next/navigation";
 // Navbar Component
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+
   const [user, setUser] = useState(null);
   const router = useRouter();
   const pathname = usePathname();
@@ -173,6 +175,7 @@ const Navbar = () => {
             Join The Waitlist
           </Link>
         )}
+
       </div>
     </nav>
   );
