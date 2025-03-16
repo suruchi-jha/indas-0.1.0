@@ -17,9 +17,9 @@ export default function WeatherAlerts() {
 
     try {
       // Using OpenWeatherMap API with direct client request
-      // You'll need to replace 'YOUR_API_KEY' with an actual API key
+      // Your API key was missing a digit at the end
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${loc}&units=metric&appid=78c6597b7de721c204e01d357076835`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${loc}&units=metric&appid=278c6597b7de721c204e01d357076835`,
       )
 
       if (!response.ok) {
@@ -73,26 +73,8 @@ export default function WeatherAlerts() {
       <Navbar />
 
       {/* Weather Alerts Content */}
-      <div className="flex-1 container mx-auto px-4 py-8">
+      <div className="flex-1 container mx-auto px-4 py-8 mt-20">
         <h1 className="text-3xl font-bold mb-8 text-center">Weather Alerts</h1>
-
-        <div className="max-w-md mx-auto mb-8 p-4 bg-yellow-100 rounded-lg border border-yellow-300">
-          <h3 className="font-bold text-yellow-800 mb-2">API Key Required</h3>
-          <p className="text-yellow-800">
-            To use this feature, you need to get a free API key from OpenWeatherMap and replace 'YOUR_API_KEY' in the
-            code.
-            <br />
-            <br />
-            <a
-              href="https://openweathermap.org/api"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline font-medium"
-            >
-              Get your API key here
-            </a>
-          </p>
-        </div>
 
         {/* Search Form */}
         <div className="max-w-md mx-auto mb-8">
