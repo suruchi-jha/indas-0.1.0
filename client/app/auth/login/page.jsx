@@ -1,94 +1,77 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { useState } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { FaEnvelope, FaLock } from "react-icons/fa"
+import Navbar from "../../components/navbar"
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+    email: "",
+    password: "",
+  })
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+      [e.target.name]: e.target.value,
+    })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+    e.preventDefault()
+    setLoading(true)
+    setError("")
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
-      });
+        body: JSON.stringify(formData),
+      })
 
-      const data = await response.json();
+      const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.message || "Login failed")
       }
 
       // Store token in localStorage
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem("token", data.token)
+      localStorage.setItem("user", JSON.stringify(data.user))
 
       // Redirect to home page
-      router.push('/');
+      router.push("/")
     } catch (error) {
-      setError(error.message);
+      setError(error.message)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-white via-gray-100 to-gray-300">
       {/* Navigation Bar */}
-      <nav className="w-full flex items-center justify-between p-4 sm:p-6 border-b-2 border-black shadow-lg bg-white">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="text-3xl underline decoration-blue-500 font-medium font-mono">
-            Indas
-          </Link>
-        </div>
-        <div className="flex items-center gap-6">
-          {["Home", "About", "Features", "Blog"].map((item, i) => (
-            <Link key={i} href={`/${item.toLowerCase()}`} className="text-l hover:text-blue-500 transition-colors hover:underline">
-              {item}
-            </Link>
-          ))}
-          <Link href="/" className="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-500 hover:text-black transition-all shadow-md">
-            Back to Home
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Login Form */}
       <div className="flex-1 flex items-center justify-center p-4">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
           <h1 className="text-3xl font-bold text-center mb-6">Login to Indas</h1>
-          
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-              {error}
-            </div>
-          )}
-          
+
+          {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">{error}</div>}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
+              <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
+                Email
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <FaEnvelope className="text-gray-400" />
@@ -105,9 +88,11 @@ export default function Login() {
                 />
               </div>
             </div>
-            
+
             <div>
-              <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
+              <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
+                Password
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <FaLock className="text-gray-400" />
@@ -124,21 +109,21 @@ export default function Login() {
                 />
               </div>
             </div>
-            
+
             <div>
               <button
                 type="submit"
                 disabled={loading}
                 className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
               >
-                {loading ? 'Logging in...' : 'Login'}
+                {loading ? "Logging in..." : "Login"}
               </button>
             </div>
           </form>
-          
+
           <div className="mt-6 text-center">
             <p className="text-gray-600">
-              Don't have an account?{' '}
+              Don't have an account?{" "}
               <Link href="/auth/signup" className="text-blue-600 hover:underline">
                 Sign up
               </Link>
@@ -154,5 +139,6 @@ export default function Login() {
         </div>
       </footer>
     </div>
-  );
+  )
 }
+

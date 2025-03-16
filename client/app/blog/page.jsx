@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { FaMapMarkerAlt, FaTools } from "react-icons/fa"
-import Navbar from "../../components/navbar"
+import { FaBlog, FaTools } from "react-icons/fa"
+import Navbar from "../components/navbar"
 
-export default function NearbyEvacPoint() {
+export default function Blog() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-white via-gray-100 to-gray-300">
       {/* Navigation Bar */}
@@ -13,16 +13,16 @@ export default function NearbyEvacPoint() {
       {/* Coming Soon Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-8">
         <div className="text-9xl text-blue-500 mb-6">
-          <FaMapMarkerAlt />
+          <FaBlog />
         </div>
-        <h1 className="text-4xl font-bold mb-4 text-center">Nearby Evacuation Points</h1>
+        <h1 className="text-4xl font-bold mb-4 text-center">Indas Blog</h1>
         <div className="flex items-center gap-2 text-2xl text-gray-600 mb-8">
           <FaTools />
           <span>Coming Soon</span>
         </div>
         <p className="text-center text-gray-600 max-w-2xl mb-8">
-          We're developing a feature to help you quickly locate the nearest evacuation points during emergencies. This
-          will include interactive maps, directions, and real-time updates on capacity and availability.
+          Our blog is under construction. Soon, we'll be sharing emergency preparedness tips, disaster response guides,
+          success stories, and updates about Indas features and development. Stay tuned!
         </p>
         <Link
           href="/"

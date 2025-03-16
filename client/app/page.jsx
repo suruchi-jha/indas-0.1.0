@@ -1,56 +1,63 @@
-'use client';
-
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState, createContext, useContext } from "react";
-import { FaRoad, FaMapMarkerAlt, FaBullhorn, FaCloudSun, FaHandsHelping, FaExclamationTriangle, FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
-import { motion } from "framer-motion";
+"use client"
+import Link from "next/link"
+import { useEffect, useState, createContext, useRef } from "react"
+import {
+  FaRoad,
+  FaMapMarkerAlt,
+  FaBullhorn,
+  FaCloudSun,
+  FaHandsHelping,
+  FaExclamationTriangle,
+  FaTwitter,
+  FaFacebook,
+  FaInstagram,
+} from "react-icons/fa"
+import { motion } from "framer-motion"
+import Navbar from "./components/navbar"
 
 // Create a context for theme
-const ThemeContext = createContext();
+const ThemeContext = createContext()
 
 export default function Home() {
-  const [text, setText] = useState("");
-  const fullText = "Indas is your ultimate guide during emergencies. Detect earthquakes, find safe exits, and stay informed with real-time alerts.";
-  const [index, setIndex] = useState(0);
-  const [theme, setTheme] = useState("light");
+  const [text, setText] = useState("")
+  const fullText =
+    "Indas is your ultimate guide during emergencies. Detect earthquakes, find safe exits, and stay informed with real-time alerts."
+  const [index, setIndex] = useState(0)
+  const [theme, setTheme] = useState("light")
+  const featuresRef = useRef(null)
+
+  useEffect(() => {
+    // Check if URL has #features hash and scroll to features section
+    if (window.location.hash === "#features" && featuresRef.current) {
+      featuresRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }, [])
 
   useEffect(() => {
     if (index < fullText.length) {
       const timeout = setTimeout(() => {
-        setText((prevText) => prevText + fullText[index]);
-        setIndex((prevIndex) => prevIndex + 1);
-      }, 50);
-      return () => clearTimeout(timeout);
+        setText((prevText) => prevText + fullText[index])
+        setIndex((prevIndex) => prevIndex + 1)
+      }, 50)
+      return () => clearTimeout(timeout)
     }
-  }, [index, fullText]);
+  }, [index, fullText])
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+    setTheme(theme === "light" ? "dark" : "light")
+  }
+
+  const scrollToFeatures = () => {
+    featuresRef.current.scrollIntoView({ behavior: "smooth" })
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className={`min-h-screen flex flex-col font-sans ${theme === "light" ? "bg-gradient-to-br from-white via-gray-100 to-gray-300" : "bg-gradient-to-br from-gray-800 via-gray-900 to-black"}`}>
+      <div
+        className={`min-h-screen flex flex-col font-sans ${theme === "light" ? "bg-gradient-to-br from-white via-gray-100 to-gray-300" : "bg-gradient-to-br from-gray-800 via-gray-900 to-black"}`}
+      >
         {/* Navigation Bar */}
-        <nav className="w-full flex items-center justify-between p-4 sm:p-6 border-b-2 border-black shadow-lg bg-white">
-          <div className="flex items-center gap-2">
-            <span className="text-3xl underline decoration-blue-500 font-medium font-mono">Indas</span>
-          </div>
-          <div className="flex items-center gap-6">
-            {["Home", "About", "Features", "Blog"].map((item, i) => (
-              <Link key={i} href={`/${item.toLowerCase()}`} className="text-l hover:text-blue-500 transition-colors hover:underline">
-                {item}
-              </Link>
-            ))}
-            <button onClick={toggleTheme} className="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-500 hover:text-black transition-all shadow-md">
-              Toggle Theme
-            </button>
-            <Link href="/auth/login" className="rounded-full bg-blue-600 text-white px-4 py-2 hover:bg-blue-500 hover:text-black transition-all shadow-md">
-              Join
-            </Link>
-          </div>
-        </nav>
+        <Navbar theme={theme} toggleTheme={toggleTheme} />
 
         {/* Hero Section */}
         <main className="flex-1 flex flex-col items-center justify-center text-center p-8 sm:p-20 gap-8">
@@ -62,12 +69,18 @@ export default function Home() {
             <span className="ml-1 inline-block h-6 w-1 bg-black animate-blink" />
           </p>
           <div className="flex gap-4">
-            <Link href="/download" className="rounded-full bg-blue-600 text-white px-6 py-3 hover:bg-blue-700 transition-all shadow-md">
+            <Link
+              href="/download"
+              className="rounded-full bg-blue-600 text-white px-6 py-3 hover:bg-blue-700 transition-all shadow-md"
+            >
               Download Now
             </Link>
-            <Link href="/features" className="rounded-full border border-black px-6 py-3 hover:bg-gray-200 transition-all">
+            <button
+              onClick={scrollToFeatures}
+              className="rounded-full border border-black px-6 py-3 hover:bg-gray-200 transition-all"
+            >
               Learn More
-            </Link>
+            </button>
           </div>
         </main>
 
@@ -94,33 +107,61 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section className="w-full py-12 sm:py-20">
+        <section id="features" ref={featuresRef} className="w-full py-12 sm:py-20">
           <div className="container mx-auto px-4 sm:px-6">
             <h2 className="text-3xl sm:text-4xl font-medium underline decoration-blue-500 text-center font-mono mb-8">
               Features
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-              {[{icon: <FaRoad />, title: "Road Block Alert", desc: "Get real-time alerts about roadblocks and alternative routes during emergencies."},
-                {icon: <FaMapMarkerAlt />, title: "Nearby Evac Point", desc: "Locate the nearest evacuation points quickly and safely."},
-                {icon: <FaBullhorn />, title: "Emergency Broadcast", desc: "Stay informed with real-time emergency broadcasts and updates."},
-                {icon: <FaCloudSun />, title: "Weather Alerts", desc: "Receive real-time weather updates to stay prepared for natural disasters.", link: "/features/weather-alerts"},
-                {icon: <FaExclamationTriangle />, title: "SOS Button", desc: "One-tap emergency SOS alert to notify authorities instantly.", link: "/features/sos"},
-                {icon: <FaHandsHelping />, title: "Community Help", desc: "Find or offer help to those in need during emergencies."}
+              {[
+                {
+                  icon: <FaRoad />,
+                  title: "Road Block Alert",
+                  desc: "Get real-time alerts about roadblocks and alternative routes during emergencies.",
+                  link: "/features/road-block-alert",
+                },
+                {
+                  icon: <FaMapMarkerAlt />,
+                  title: "Nearby Evac Point",
+                  desc: "Locate the nearest evacuation points quickly and safely.",
+                  link: "/features/nearby-evac-point",
+                },
+                {
+                  icon: <FaBullhorn />,
+                  title: "Emergency Broadcast",
+                  desc: "Stay informed with real-time emergency broadcasts and updates.",
+                  link: "/features/emergency-broadcast",
+                },
+                {
+                  icon: <FaCloudSun />,
+                  title: "Weather Alerts",
+                  desc: "Receive real-time weather updates to stay prepared for natural disasters.",
+                  link: "/features/weather-alerts",
+                },
+                {
+                  icon: <FaExclamationTriangle />,
+                  title: "SOS Button",
+                  desc: "One-tap emergency SOS alert to notify authorities instantly.",
+                  link: "/features/sos",
+                },
+                {
+                  icon: <FaHandsHelping />,
+                  title: "Community Help",
+                  desc: "Find or offer help to those in need during emergencies.",
+                  link: "/features/community-help",
+                },
               ].map((feature, i) => (
-                <motion.div key={i} 
-                  className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all flex flex-col items-center text-center"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <div className="text-4xl text-blue-600 mb-4">{feature.icon}</div>
-                  <h3 className="text-xl font-bold">{feature.title}</h3>
-                  <p className="text-gray-600 mb-4">{feature.desc}</p>
-                  {feature.link && (
-                    <Link href={feature.link} className="text-blue-600 hover:underline mt-auto">
-                      Learn more
-                    </Link>
-                  )}
-                </motion.div>
+                <Link key={i} href={feature.link} className="block">
+                  <motion.div
+                    className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all flex flex-col items-center text-center h-full"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="text-4xl text-blue-600 mb-4">{feature.icon}</div>
+                    <h3 className="text-xl font-bold">{feature.title}</h3>
+                    <p className="text-gray-600 mt-2">{feature.desc}</p>
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </div>
@@ -139,5 +180,6 @@ export default function Home() {
         </footer>
       </div>
     </ThemeContext.Provider>
-  );
+  )
 }
+
