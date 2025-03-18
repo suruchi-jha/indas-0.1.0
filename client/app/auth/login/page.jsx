@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { FaEnvelope, FaLock } from "react-icons/fa"
 import Navbar from "../../components/navbar"
+import axios from "axios"
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -28,19 +29,11 @@ export default function Login() {
     setError("")
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
+      console.log(formData)
+      const response = axios.post("http://localhost:5050/api/auth/login" , 
+      {formData})
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed")
-      }
+      console.log(response)
 
       // Store token in localStorage
       localStorage.setItem("token", data.token)
@@ -49,6 +42,7 @@ export default function Login() {
       // Redirect to home page
       router.push("/")
     } catch (error) {
+      console.log("yaha error ho rha hai")
       setError(error.message)
     } finally {
       setLoading(false)
