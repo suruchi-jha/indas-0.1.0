@@ -29,21 +29,32 @@ export default function Login() {
     setError("")
 
     try {
-      console.log(formData)
-      const response = axios.post("http://localhost:5050/api/auth/login" , 
-      {formData})
+      console.log("Submitting:", formData)
 
-      console.log(response)
+      // Fixed: await the axios call and send data correctly
+      const response = await axios.post("https://backend-indas.onrender.com/api/auth/login", formData)
+
+      console.log("Response:", response.data)
+
+      // Fixed: use response.data
+      const data = response.data
 
       // Store token in localStorage
       localStorage.setItem("token", data.token)
       localStorage.setItem("user", JSON.stringify(data.user))
 
+      // Dispatch custom event to notify other components
+      window.dispatchEvent(new Event("userStateChange"))
+
       // Redirect to home page
       router.push("/")
     } catch (error) {
-      console.log("yaha error ho rha hai")
-      setError(error.message)
+      console.error("Login error:", error)
+      if (error.code === "ERR_NETWORK") {
+        setError("Cannot connect to the server. Please make sure your backend is running at http://localhost:5050")
+      } else {
+        setError(error.response?.data?.message || error.message || "Login failed")
+      }
     } finally {
       setLoading(false)
     }
@@ -55,7 +66,7 @@ export default function Login() {
       <Navbar />
 
       {/* Login Form */}
-      <div className="flex-1 flex items-center justify-center p-4">
+      <div className="flex-1 flex items-center justify-center p-4 mt-20">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
           <h1 className="text-3xl font-bold text-center mb-6">Login to Indas</h1>
 

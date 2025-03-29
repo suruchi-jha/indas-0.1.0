@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa"
 import Navbar from "../../components/navbar"
+import axios from "axios"
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -37,32 +38,35 @@ export default function Signup() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        }),
+      console.log("Submitting:", formData)
+
+      // Fixed: Use axios and correct port
+      const response = await axios.post("https://backend-indas.onrender.com/api/auth/register", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
       })
 
-      const data = await response.json()
+      console.log("Response:", response.data)
 
-      if (!response.ok) {
-        throw new Error(data.message || "Registration failed")
-      }
+      const data = response.data
 
       // Store token in localStorage
       localStorage.setItem("token", data.token)
       localStorage.setItem("user", JSON.stringify(data.user))
 
+      // Dispatch custom event to notify other components
+      window.dispatchEvent(new Event("userStateChange"))
+
       // Redirect to home page
       router.push("/")
     } catch (error) {
-      setError(error.message)
+      console.error("Registration error:", error)
+      if (error.code === "ERR_NETWORK") {
+        setError("Cannot connect to the server. Please make sure your backend is running at http://localhost:5050")
+      } else {
+        setError(error.response?.data?.message || error.message || "Registration failed")
+      }
     } finally {
       setLoading(false)
     }
@@ -74,7 +78,7 @@ export default function Signup() {
       <Navbar />
 
       {/* Signup Form */}
-      <div className="flex-1 flex items-center justify-center p-4">
+      <div className="flex-1 flex items-center justify-center p-4 mt-20">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
           <h1 className="text-3xl font-bold text-center mb-6">Create an Account</h1>
 
